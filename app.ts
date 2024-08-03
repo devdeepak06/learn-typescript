@@ -80,40 +80,72 @@
 
 // Extend
 
-interface Book {
+// interface Book {
+//   name: string;
+//   price: number;
+// }
+
+// interface Ebook extends Book {
+//   // name: string;
+//   // price: number;
+//   fileSize: number;
+//   format: string;
+// }
+// interface Audiobook extends Ebook {
+//   // name: string;
+//   // price: number;
+//   // fileSize: number;
+//   // format: string;
+//   duration: number;
+// }
+
+// const book: Book = {
+//   name: "Atomic Habits",
+//   price: 1200,
+// };
+
+// const ebook: Ebook = {
+//   name: "Atomic Habits",
+//   price: 1200,
+//   fileSize: 200,
+//   format: "pdf",
+// };
+// const audiobook: Audiobook = {
+//   name: "Atomic Habits",
+//   price: 1200,
+//   fileSize: 200,
+//   format: "mp3",
+//   duration: 34,
+// };
+
+interface IPost {
+  title: string;
+  id: number;
+  description: string;
+}
+interface IUser {
+  id: number;
   name: string;
-  price: number;
+  age: number;
 }
 
-interface Ebook extends Book {
-  // name: string;
-  // price: number;
-  fileSize: number;
-  format: string;
-}
-interface Audiobook extends Ebook {
-  // name: string;
-  // price: number;
-  // fileSize: number;
-  // format: string;
-  duration: number;
-}
+// const fetchPostData = async (path: string): Promise<IPost[]> => {
+//   const response = await fetch(`http:example.com/${path}`);
+//   return response.json();
+// };
+// const fetchUsersData = async (path: string): Promise<IUser[]> => {
+//   const response = await fetch(`http:example.com/${path}`);
+//   return response.json();
+// };
 
-const book: Book = {
-  name: "Atomic Habits",
-  price: 1200,
+const fetchData = async <ResultType>(path: string): Promise<ResultType> => {
+  const response = await fetch(`http:example.com/${path}`);
+  return response.json();
 };
 
-const ebook: Ebook = {
-  name: "Atomic Habits",
-  price: 1200,
-  fileSize: 200,
-  format: "pdf",
-};
-const audiobook: Audiobook = {
-  name: "Atomic Habits",
-  price: 1200,
-  fileSize: 200,
-  format: "mp3",
-  duration: 34,
-};
+(async () => {
+  const posts = await fetchData<IPost[]>("/posts");
+  posts[0].title;
+  const users = await fetchData<IUser[]>("/users");
+  users[0].name;
+})();
